@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "57562698568",
+    "project_id": "matchwork-cc343",
+    "storage_bucket": "matchwork-cc343.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57562698568:android:c8e8c0e00ae3d6ef34597d",
+        "android_client_info": {
+          "package_name": "com.example.basic_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57562698568-tf2em9mnqc5m9aen0p7617mike3feej6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJVEMKrdB5TBJgIYNqp3GMpjAae1sgsZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57562698568-tf2em9mnqc5m9aen0p7617mike3feej6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
