@@ -7,6 +7,7 @@ import sys
 from flask_cors import CORS
 import base64
 from datetime import datetime
+import random
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")  # สร้าง SocketIO instance
@@ -31,6 +32,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 # ต่อไปจะเป็นการเขียนรายละเอียดของ API ตามที่คุณต้องการ
+def generate_otp():
+    # Generate a random 6-digit OTP
+    return random.randint(100000, 999999)
 
 def check_duplicate_data(cursor):
     check_duplicate_sql = """
@@ -76,6 +80,23 @@ def hello_world():
     print(q)
     return {"message": 'Hello, World!'}, 201  # dic, status code == Created
 
+def verify_otp():
+    data = request.form
+    otp_received = data.get('otp')
+
+    # Check if the received OTP matches the stored OTP in the database
+    conn = sqlite3.connect('matchwork2.sqlite')
+    c = conn.cursor()
+
+    c.execute('SELECT * FROM OTP WHERE otp_number = ?', (otp_received,))
+    result = c.fetchone()
+
+    if result:
+        # Successful OTP verification
+        return jsonify({"message": "OTP verification successful"}), 200
+    else:
+        # Failed OTP verification
+        return jsonify({"message": "OTP verification failed"}), 400
 @app.route('/regemployer', methods=['POST', 'GET', 'PUT', 'DELETE'])
 def regregemployer():
     conn = sqlite3.connect('matchwork2.sqlite')
@@ -99,7 +120,7 @@ def regregemployer():
     firstname = data.get('Firstname')
     lastname = data.get('Lastname')
     phonenumber = data.get('Phonenumber')
-    otp = data.get('OTP')
+    otp = generate_otp()
     
         
     print(email)
@@ -135,12 +156,11 @@ def regregemployer():
         if email_count > 0:
             return jsonify({"message": "อีเมลนี้ถูกใช้งานแล้ว", "body": body}), 400
         else:
-            c.execute("INSERT INTO registeremployer (email, password, username, firstname, lastname, phonenumber) VALUES (?, ?, ?, ?, ?, ?)",
-              (email, password, username, firstname, lastname, phonenumber))
-            c.execute("INSERT INTO OTP (otp_number) VALUES (?)",
-              (otp,))
+            c.execute("INSERT INTO registeremployer (email, password, username, firstname, lastname, phonenumber, otp) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (email, password, username, firstname, lastname, phonenumber, otp))
+
             conn.commit()
-            return jsonify({"message": "ลงทะเบียนเรียบร้อยแล้ว!", "body": body}), 201
+            return jsonify({"message": "ลงทะเบียนเรียบร้อยแล้ว!", "body": body, "otp": otp}), 201
 
     elif request.method == 'GET':
         rows = []
@@ -328,6 +348,12 @@ def login():
         return jsonify({"message": "Login successful!"}) #loginสำเร็จ
     else:
         return jsonify({"message": "Invalid login credentials"})#ไม่สามารถเข้าใช้งานได้
+    
+@app.route('/sign_out', methods=['GET'])
+def sign_out():
+    # Perform sign-out logic
+    # You might want to clear session data, etc.
+    return jsonify({'message': 'Sign-out successful'}), 200
     
 @app.route('/profileemployer', methods=['GET', 'PUT'])
 def profileemployer():
