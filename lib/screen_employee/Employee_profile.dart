@@ -1,18 +1,19 @@
 import 'package:basic_flutter/model/profile.dart';
-import 'package:basic_flutter/screen/personal_info.dart';
+import 'package:basic_flutter/screen_employee/homepage_22.dart';
+import 'package:basic_flutter/screen_employee/personal_info_employee.dart';
+import 'package:basic_flutter/screen_employee/setting_employee.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:basic_flutter/screen/homepage.dart';
 import '../screen/portfolio.dart';
 
-class UserProfile extends StatefulWidget {
-  const UserProfile({super.key});
+class EmployeeProfile extends StatefulWidget {
+  const EmployeeProfile({super.key});
 
   @override
-  State<UserProfile> createState() => _UserProfileState();
+  State<EmployeeProfile> createState() => _EmployeeProfileState();
 }
 
-class _UserProfileState extends State<UserProfile>
+class _EmployeeProfileState extends State<EmployeeProfile>
     with TickerProviderStateMixin {
   //final Future<FirebaseApp> firebase = Firebase.initializeApp();
   //CollectionReference _registerCollection =
@@ -31,16 +32,7 @@ class _UserProfileState extends State<UserProfile>
       post_description: '',
       post_title: '');
   get formattedData => null;
-  bool _toggleFavorite = false;
-  void _toggleFav() {
-    setState(() {
-      if (_toggleFavorite) {
-        _toggleFavorite = false;
-      } else {
-        _toggleFavorite = true;
-      }
-    });
-  }
+  
 
   late TabController _tabController;
   @override
@@ -67,7 +59,7 @@ class _UserProfileState extends State<UserProfile>
         )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
-            extendBodyBehindAppBar: true,
+            extendBodyBehindAppBar: false,
             appBar: AppBar(
               leading: IconButton(
                 icon: const Icon(
@@ -77,13 +69,13 @@ class _UserProfileState extends State<UserProfile>
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return const login();
+                      return const homepage_employee();
                     },
                   ));
                 },
               ),
               centerTitle: true,
-              title: const SizedBox(
+              title:  const SizedBox(
                   child: Text(
                 'Profile',
                 style: TextStyle(
@@ -92,12 +84,10 @@ class _UserProfileState extends State<UserProfile>
               )),
               actions: [
                 IconButton(
-                  icon: (_toggleFavorite
-                      ? const Icon(Icons.favorite)
-                      : const Icon(Icons.favorite_border)),
-                  color: Colors.red,
-                  onPressed: _toggleFav,
-                )
+                  icon: Icon(Icons.settings),
+                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return const setting2();
+                    })); },)
               ],
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -118,7 +108,7 @@ class _UserProfileState extends State<UserProfile>
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
                         return Container(
-                            margin: const EdgeInsets.fromLTRB(12, 50, 20, 15),
+                            margin: const EdgeInsets.fromLTRB(12, 0, 20, 15),
                             width: 374,
                             height: 600,
                             decoration: const BoxDecoration(
@@ -130,7 +120,7 @@ class _UserProfileState extends State<UserProfile>
                               children: <Widget>[
                                 Container(
                                   margin:
-                                      const EdgeInsets.fromLTRB(2, 25, 10, 15),
+                                      const EdgeInsets.fromLTRB(2, 20, 10, 15),
                                   child: const Center(
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
@@ -181,7 +171,7 @@ class _UserProfileState extends State<UserProfile>
                                     child: TabBarView(
                                         controller: _tabController,
                                         children: const <Widget>[
-                                      Personal_info(),
+                                      Personal_info_employee(),
                                       Protfolio(),
                                     ]))
                               ],

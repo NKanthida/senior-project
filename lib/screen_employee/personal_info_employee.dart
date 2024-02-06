@@ -1,16 +1,13 @@
-import 'package:basic_flutter/screen/chat.dart';
 import 'package:flutter/material.dart';
 
-import '../database/homepage.dart';
-
-class Personal_info extends StatefulWidget {
-  const Personal_info({super.key});
+class Personal_info_employee extends StatefulWidget {
+  const Personal_info_employee({super.key});
 
   @override
-  State<Personal_info> createState() => _Personal_infoState();
+  State<Personal_info_employee> createState() => _Personal_info_employeeState();
 }
 
-class _Personal_infoState extends State<Personal_info> {
+class _Personal_info_employeeState extends State<Personal_info_employee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,19 +64,6 @@ class _Personal_infoState extends State<Personal_info> {
               ),
               //),
             ),
-
-            Container(
-              margin: const EdgeInsets.only(top: 150),
-              alignment: Alignment.center,
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return const Chat();
-                    }));
-                  },
-                  child: const Text("Chat",style: TextStyle(fontSize: 20,color: Colors.black),)
-              ),
-            )
           ],
         ),
       ),

@@ -197,12 +197,12 @@ class _SearchState extends State<Search> {
                   ),
                   onTap: () {
                     //ใส่ข้อมูลที่หามา
-                    //print('click');
+                    print('click');
                   },
                 )
               ],
             ),
-            bottomNavigationBar: BottomBar(),
+            //bottomNavigationBar: BottomBar(),
             ),
       ),
     );

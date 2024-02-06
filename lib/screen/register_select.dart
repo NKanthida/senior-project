@@ -50,7 +50,7 @@ class _RegselectState extends State<Regselect> {
                       return const RegisterScreen();
                     }));
                   },
-                  child: const Text("ผู้รับงาน",
+                  child: const Text("ผู้จ้างงาน",
                       style: TextStyle(fontSize: 20, color: Colors.white)),
                 ),
               ),
@@ -69,7 +69,7 @@ class _RegselectState extends State<Regselect> {
                       }));
                     },
                     child:
-                        const Text("ผู้จ้างงาน", style: TextStyle(fontSize: 20,color: Colors.white))),
+                        const Text("ผู้รับงาน", style: TextStyle(fontSize: 20,color: Colors.white))),
               )
             ]),
           ),

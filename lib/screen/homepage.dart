@@ -3,7 +3,7 @@ import 'package:basic_flutter/screen/Post.dart';
 import 'package:basic_flutter/screen/Profile1.dart';
 import 'package:basic_flutter/screen/Profile2.dart';
 import 'package:basic_flutter/screen/ProfileCard.dart';
-import 'package:basic_flutter/screen/UserProfile.dart';
+//import 'package:basic_flutter/screen_employee/UserProfile.dart';
 import 'package:basic_flutter/screen/bgtinderpage.dart';
 import 'package:basic_flutter/screen/chat.dart';
 import 'package:basic_flutter/screen/search.dart';
@@ -49,8 +49,7 @@ class _loginState extends State<login> {
             Color.fromRGBO(120, 255, 215, 1),
             Color.fromRGBO(101, 234, 204, 1),
             Color.fromRGBO(0, 122, 145, 1)
-          ],
-          //stops: [0.1, 0.56, 1]
+          ]
         )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -112,7 +111,7 @@ class _loginState extends State<login> {
                                       builder: (context) {
                                         //return const UserProfile();
                                         //return const SwipePage();
-                                        return bgtinderpage();
+                                        return const bgtinderpage();
                                         //return MyWidget();
                                       },
                                     ));

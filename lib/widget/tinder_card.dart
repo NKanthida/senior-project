@@ -1,9 +1,10 @@
 import 'package:basic_flutter/screen/UserProfile.dart';
-import 'package:basic_flutter/screen/personal_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
 
 class TinderCard extends StatelessWidget {
+  const TinderCard({super.key});
+
   //const MyWidget({super.key});
   //final colorr;
   //const TinderCard({required this.colorr});

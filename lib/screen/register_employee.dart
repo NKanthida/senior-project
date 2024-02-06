@@ -6,6 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class employee extends StatefulWidget {
   const employee({super.key});
@@ -15,26 +18,85 @@ class employee extends StatefulWidget {
 }
 
 class _employeeState extends State<employee> {
+  Future<void> registeremployee(BuildContext context) async {
+    String username = usernameController.text;
+    String firstname = firstnameController.text;
+    String lastname = lastnameController.text;
+    String email = emailController.text;
+    String password = passwordController.text;
+    String skill = skillController.text;
+    int phonenumber = int.parse(phonenumberController.text);
+    //int otp = int.parse(otpController.text);
+
+    try {
+      print("hello");
+      final Map<String, dynamic> data = {
+        'Username': username,
+        'Firstname': firstname,
+        'Lastname': lastname,
+        'email': email,
+        'password': password,
+        'phonenumber': phonenumber,
+        'skill': skill,
+        //'otp': otp,
+      };
+
+      var response = await http.post(
+        Uri.parse(
+            'http://10.64.69.56:5000/user'), // เปลี่ยนเป็น URL ของ Flask API ของคุณ
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer YourAccessTokenOrAPIKey',
+          'Access-Control-Allow-Origin':
+              '*', // ใช้ * หรือโดเมนที่เซิร์ฟเวอร์ยอมรับ
+        },
+        body: jsonEncode(data),
+      );
+      print("ho");
+
+      if (response.statusCode == 201) {
+        print("Registration Successful!");
+        print("Response Body: ${response.body}");
+      } else {
+        print("Registration Failed!");
+        print("Response Code: ${response.statusCode}");
+        print("Response Body: ${response.body}");
+      }
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
   //late final FirebaseAuth auth;
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   final CollectionReference _registerCollection =
       FirebaseFirestore.instance.collection("RegisterEmployer");
   final formKey = GlobalKey<FormState>();
-  Profile profile = Profile(
-      email: '',
-      password: '',
-      Firstname: '',
-      Lastname: '',
-      Username: '',
-      Phonenumber: '',
-      Otp: '',
-      name_home: '',
-      password_home: '',
-      post_description: '',
-      post_title: '');
-  get formattedData => null;
+  // Profile profile = Profile(
+  //     email: '',
+  //     password: '',
+  //     Firstname: '',
+  //     Lastname: '',
+  //     Username: '',
+  //     Phonenumber: '',
+  //     Otp: '',
+  //     name_home: '',
+  //     password_home: '',
+  //     post_description: '',
+  //     post_title: '');
+  // get formattedData => null;
   TextEditingController password = TextEditingController();
   TextEditingController confirmpassword = TextEditingController();
+  
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController firstnameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phonenumberController = TextEditingController();
+  TextEditingController skillController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -88,7 +150,7 @@ class _employeeState extends State<employee> {
                             ),
                             keyboardType: TextInputType.name,
                             onSaved: (String? Username) {
-                              profile.Username = Username!;
+                              usernameController.text = Username!;
                             },
                           ),
 
@@ -100,7 +162,7 @@ class _employeeState extends State<employee> {
                             ),
                             keyboardType: TextInputType.name,
                             onSaved: (String? Firstname) {
-                              profile.Firstname = Firstname!;
+                              firstnameController.text = Firstname!;
                             },
                           ),
 
@@ -112,7 +174,7 @@ class _employeeState extends State<employee> {
                             ),
                             keyboardType: TextInputType.name,
                             onSaved: (String? Lastname) {
-                              profile.Lastname = Lastname!;
+                              lastnameController.text = Lastname!;
                             },
                           ),
 
@@ -124,7 +186,7 @@ class _employeeState extends State<employee> {
                             ),
                             keyboardType: TextInputType.phone,
                             onSaved: (String? Phonenumber) {
-                              profile.Phonenumber = Phonenumber!;
+                              phonenumberController.text = Phonenumber!;
                             },
                           ),
 
@@ -141,7 +203,7 @@ class _employeeState extends State<employee> {
                             ]),
                             keyboardType: TextInputType.emailAddress,
                             onSaved: (String? email) {
-                              profile.email = email!;
+                              emailController.text = email!;
                             },
                           ),
                           
@@ -155,7 +217,7 @@ class _employeeState extends State<employee> {
                                 errorText: "pls enter your password"),
                             obscureText: true,
                             onSaved: (String? password) {
-                              profile.password = password!;
+                              passwordController.text = password!;
                             },
                           ),
                           
@@ -188,15 +250,16 @@ class _employeeState extends State<employee> {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             formKey.currentState?.save();
-                            await _registerCollection.add({
-                              'email': profile.email,
-                              'password': profile.password,
-                              'Username': profile.Username,
-                              'Firstname': profile.Firstname,
-                              'Lastname': profile.Lastname,
-                              'joinedAt': formattedData,
-                              'createdAt': Timestamp.now()
-                            });
+                            await registeremployee(context);
+                            // _registerCollection.add({
+                            //   'email': profile.email,
+                            //   'password': profile.password,
+                            //   'Username': profile.Username,
+                            //   'Firstname': profile.Firstname,
+                            //   'Lastname': profile.Lastname,
+                            //   'joinedAt': formattedData,
+                            //   'createdAt': Timestamp.now()
+                            // });
                             formKey.currentState?.reset();
                             // ignore: use_build_context_synchronously
                             Navigator.push(context,

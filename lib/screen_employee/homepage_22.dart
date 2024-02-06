@@ -1,18 +1,19 @@
-import 'package:basic_flutter/screen/Formpost.dart';
-import 'package:basic_flutter/screen/des_post.dart';
-import 'package:basic_flutter/screen/homepage.dart';
-import 'package:basic_flutter/widget/bottomBar.dart';
+//import 'package:basic_flutter/screen_employee/UserProfile.dart';
+import 'package:basic_flutter/screen_employee/Employee_profile.dart';
+import 'package:basic_flutter/screen_employee/des_post_employee.dart';
+import 'package:basic_flutter/screen_employee/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class PostScreen extends StatefulWidget {
-  const PostScreen({super.key});
+
+class homepage_employee extends StatefulWidget {
+  const homepage_employee({super.key});
 
   @override
-  State<PostScreen> createState() => _PostScreenState();
+  State<homepage_employee> createState() => _homepage_employeeState();
 }
 
-class _PostScreenState extends State<PostScreen> {
+class _homepage_employeeState extends State<homepage_employee> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,16 +31,16 @@ class _PostScreenState extends State<PostScreen> {
         )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
-            extendBodyBehindAppBar: true,
+            //extendBodyBehindAppBar: true,
             appBar: AppBar(
               leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Colors.black,
-                ),
+                icon: (const CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        'https://www.woolha.com/media/2020/03/eevee.png'))),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                    return const login();
+                    //return const Profile_employee();
+                    return const EmployeeProfile();
                   })));
                 },
               ),
@@ -50,11 +51,11 @@ class _PostScreenState extends State<PostScreen> {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.post_add_outlined, color: Colors.black),
+                  icon: const Icon(Icons.notifications_none_rounded, color: Colors.black),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                      return const Formpost();
-                    })));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    //   return const Search();
+                    // }));
                   },
                 ),
               ],
@@ -84,11 +85,11 @@ class _PostScreenState extends State<PostScreen> {
                               minVerticalPadding: 20,
                               title: Text(data['Username'].toString(),
                                   style: const TextStyle(fontSize: 20)),
-                              subtitle: Text(data['email'].toString()),
+                              subtitle: const Text("รายละเอียดย่อของโพส"),//Text(data['email'].toString()),
                               onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
-                                  return DesPost();
+                                  return const DesPost_employee();
                                 }));
                               },
                             ),

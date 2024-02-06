@@ -1,19 +1,20 @@
 import 'package:basic_flutter/model/profile.dart';
 import 'package:basic_flutter/screen/home.dart';
 import 'package:basic_flutter/screen/setting.dart';
+import 'package:basic_flutter/screen_employee/setting_employee.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:basic_flutter/screen/homepage.dart';
 
-class Profile1 extends StatefulWidget {
-  const Profile1({super.key});
+class Profile2 extends StatefulWidget {
+  const Profile2({super.key});
 
   @override
-  State<Profile1> createState() => _Profile1State();
+  State<Profile2> createState() => _Profile2State();
 }
 
-class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
+class _Profile2State extends State<Profile2> with TickerProviderStateMixin {
   final FirebaseAuth auth = FirebaseAuth.instance;
   //signout function
   Future signOut() async {
@@ -83,7 +84,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return const setting();
+                      return const setting2();
                     }));
                   },
                 ),
@@ -106,7 +107,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   return Container(
-                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                     
                     width: 374,
                     height: 635,
@@ -174,7 +175,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                           margin: const EdgeInsets.fromLTRB(0, 13, 0, 0),
                           width: 280,
                          // height: 48,
-                          decoration:  const BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
+                          decoration:  BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
                           //border: Border.all(width:2,color: Colors.black),
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                           child: const Padding(
@@ -192,7 +193,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                           margin: const EdgeInsets.fromLTRB(0, 13, 0, 0),
                           width: 280,
                          // height: 48,
-                          decoration:  const BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
+                          decoration:  BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
                           //border: Border.all(width:2,color: Colors.black),
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                           child: const Padding(

@@ -1,25 +1,25 @@
 import 'package:basic_flutter/model/profile.dart';
-import 'package:basic_flutter/screen/home.dart';
-import 'package:basic_flutter/screen/setting.dart';
+import 'package:basic_flutter/screen_employee/homepage_22.dart';
+import 'package:basic_flutter/screen_employee/setting_employee.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:basic_flutter/screen/homepage.dart';
 
-class Profile1 extends StatefulWidget {
-  const Profile1({super.key});
+
+class Profile_employee extends StatefulWidget {
+  const Profile_employee({super.key});
 
   @override
-  State<Profile1> createState() => _Profile1State();
+  State<Profile_employee> createState() => _Profile_employeeState();
 }
 
-class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
+class _Profile_employeeState extends State<Profile_employee> with TickerProviderStateMixin {
   final FirebaseAuth auth = FirebaseAuth.instance;
   //signout function
   Future signOut() async {
     await auth.signOut();
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const Homescreen()));
+        context, MaterialPageRoute(builder: (context) => const homepage_employee()));
   }
   final formKey = GlobalKey<FormState>();
   Profile profile = Profile(
@@ -52,7 +52,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
         )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
-            extendBodyBehindAppBar: true,
+            extendBodyBehindAppBar: false,
             appBar: AppBar(
               leading: IconButton(
                 icon: const Icon(
@@ -62,7 +62,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return const login();
+                      return const homepage_employee();
                     },
                   ));
                 },
@@ -83,7 +83,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                   ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return const setting();
+                      return const setting2();
                     }));
                   },
                 ),
@@ -106,7 +106,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   return Container(
-                    margin: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                     
                     width: 374,
                     height: 635,
@@ -129,7 +129,7 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                               ),
                             )),
                         Padding(
-                          padding: const EdgeInsets.all(25.0),
+                          padding: const EdgeInsets.all(30.0),
                           child: Text(
                             data['Username'].toString(),
                             style: const TextStyle(
@@ -138,9 +138,9 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                         ),
                         
                         Container(
-                          width: 280,
+                          width: 290,
                           height: 48,
-                          decoration: const BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
+                          decoration: const BoxDecoration(color: Colors.amber,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(20, 13, 0, 0),
@@ -153,14 +153,16 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
                           ),
                         ),
 
+                        
+
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 13, 0, 0),
-                          width: 280,
-                          //height: 48,
-                          decoration: const BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
+                          width: 290,
+                          height: 48,
+                          decoration: const BoxDecoration(color: Colors.amber,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                           child: const Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: EdgeInsets.fromLTRB(20, 13, 0, 0),
                             child: Text(
                               'Notification',
                               //data['Phonenumber'].toString(),
@@ -172,13 +174,12 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
 
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 13, 0, 0),
-                          width: 280,
-                         // height: 48,
-                          decoration:  const BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
-                          //border: Border.all(width:2,color: Colors.black),
+                          width: 290,
+                          height: 48,
+                          decoration: const BoxDecoration(color: Colors.amber,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                           child: const Padding(
-                            padding: EdgeInsets.all(15.0),
+                            padding: EdgeInsets.fromLTRB(20, 13, 0, 0),
                             child: Text(
                               'Change Passwords',
                               //data['Phonenumber'].toString(),
@@ -208,9 +209,9 @@ class _Profile1State extends State<Profile1> with TickerProviderStateMixin {
 
                         Container(
                           margin: const EdgeInsets.fromLTRB(0, 13, 0, 0),
-                          width: 280,
+                          width: 290,
                           height: 48,
-                          decoration: const BoxDecoration(color: Color.fromARGB(255, 254, 221, 121),
+                          decoration: const BoxDecoration(color: Colors.amber,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                           child: ElevatedButton(
                             onPressed: () { signOut(); },

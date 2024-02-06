@@ -1,17 +1,17 @@
 import 'dart:io';
 
-import 'package:basic_flutter/screen/homepage.dart';
+import 'package:basic_flutter/screen_employee/des_post_employee.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({super.key});
+class Chat2 extends StatefulWidget {
+  const Chat2({super.key});
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<Chat2> createState() => _Chat2State();
 }
 
-class _ChatState extends State<Chat> {
+class _Chat2State extends State<Chat2> {
   // List<Message> message = [
   //   text: ' ',
   //   date: DateTime.now().subtract(Duration(minutes:1)),
@@ -74,7 +74,7 @@ class _ChatState extends State<Chat> {
             ),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: ((context) {
-                return const login();
+                return const DesPost_employee();
               })));
             },
           ),
